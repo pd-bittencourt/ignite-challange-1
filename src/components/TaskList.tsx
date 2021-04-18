@@ -1,48 +1,48 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-import "../styles/tasklist.scss";
+import '../styles/tasklist.scss'
 
-import { FiTrash, FiCheckSquare } from "react-icons/fi";
+import { FiTrash, FiCheckSquare } from 'react-icons/fi'
 
 interface Task {
-  id: number;
-  title: string;
-  isComplete: boolean;
+  id: number
+  title: string
+  isComplete: boolean
 }
 
 export function TaskList() {
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [newTaskTitle, setNewTaskTitle] = useState("");
+  const [tasks, setTasks] = useState<Task[]>([])
+  const [newTaskTitle, setNewTaskTitle] = useState('')
 
   function handleCreateNewTask() {
-    if (!newTaskTitle) return;
+    if (!newTaskTitle) return
 
     const newTask = {
       id: Math.random(),
       title: newTaskTitle,
       isComplete: false,
-    };
+    }
 
-    setTasks((oldState) => [...oldState, newTask]);
-    setNewTaskTitle("");
+    setTasks(oldState => [...oldState, newTask])
+    setNewTaskTitle('')
   }
 
   function handleToggleTaskCompletion(id: number) {
-    const newTasks = tasks.map((task) =>
+    const newTasks = tasks.map(task =>
       task.id === id
         ? {
             ...task,
             isComplete: !task.isComplete,
           }
-        : task
-    );
-    setTasks(newTasks);
+        : task,
+    )
+    setTasks(newTasks)
   }
 
   function handleRemoveTask(id: number) {
-    const filteredTasks = tasks.filter((task) => task.id !== id);
+    const filteredTasks = tasks.filter(task => task.id !== id)
 
-    setTasks(filteredTasks);
+    setTasks(filteredTasks)
   }
 
   return (
@@ -54,7 +54,7 @@ export function TaskList() {
           <input
             type="text"
             placeholder="Adicionar novo todo"
-            onChange={(e) => setNewTaskTitle(e.target.value)}
+            onChange={e => setNewTaskTitle(e.target.value)}
             value={newTaskTitle}
           />
           <button
@@ -69,10 +69,10 @@ export function TaskList() {
 
       <main>
         <ul>
-          {tasks.map((task) => (
+          {tasks.map(task => (
             <li key={task.id}>
               <div
-                className={task.isComplete ? "completed" : ""}
+                className={task.isComplete ? 'completed' : ''}
                 data-testid="task"
               >
                 <label className="checkbox-container">
@@ -82,7 +82,7 @@ export function TaskList() {
                     checked={task.isComplete}
                     onClick={() => handleToggleTaskCompletion(task.id)}
                   />
-                  <span className="checkmark"></span>
+                  <span className="checkmark" />
                 </label>
                 <p>{task.title}</p>
               </div>
@@ -99,5 +99,5 @@ export function TaskList() {
         </ul>
       </main>
     </section>
-  );
+  )
 }
